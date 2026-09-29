@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClientSense - Client Intelligence</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ClientSense</h1>
+            <p>Client behaviour, remembered across every engagement</p>
+        </header>
+
+        <nav class="tabs" role="tablist">
+            <button class="tab active" data-view="brief" role="tab" aria-selected="true">Brief me</button>
+            <button class="tab" data-view="log" role="tab" aria-selected="false">Log interaction</button>
+            <button class="tab" data-view="timeline" role="tab" aria-selected="false">Timeline</button>
+        </nav>
+
+        <main>
+            <!-- Shared client selector -->
+            <section class="client-picker">
+                <label for="client-select">Client</label>
+                <div class="picker-row">
+                    <select id="client-select">
+                        <option value="">Loading clients...</option>
+                    </select>
+                    <input type="text" id="client-name" placeholder="or type a new client name" autocomplete="off">
+                </div>
+                <p class="picker-hint" id="picker-hint"></p>
+            </section>
+
+            <!-- ============ View 1: Brief ============ -->
+            <section id="view-brief" class="view">
+                <div class="action-row">
+                    <button id="get-brief-btn" class="primary-btn">Get Brief</button>
+                    <span id="brief-status" class="status"></span>
+                </div>
+
+                <article id="brief-result" class="panel hidden">
+                    <h2>Brief for <span id="brief-client-name"></span></h2>
+                    <p class="meta" id="brief-meta"></p>
+
+                    <div class="grid">
+                        <section class="card">
+                            <h3>Payment behaviour</h3>
+                            <p id="brief-payment"></p>
+                        </section>
+                        <section class="card">
+                            <h3>Revisions &amp; scope</h3>
+                            <p id="brief-revision"></p>
+                        </section>
+                        <section class="card">
+                            <h3>Communication style</h3>
+                            <p id="brief-communication"></p>
+                        </section>
+                        <section class="card card-recommendation">
+                            <h3>Recommendation</h3>
+                            <p id="brief-recommendation"></p>
+                        </section>
+                    </div>
+
+                    <section class="card card-flags">
+                        <h3>Red flags</h3>
+                        <div id="brief-red-flags"></div>
+                    </section>
+
+                    <section class="card card-evidence">
+                        <h3>Evidence</h3>
+                        <p id="brief-evidence"></p>
+                        <details id="brief-citations-wrap" class="hidden">
+                            <summary>Memories cited by this brief</summary>
+                            <ul id="brief-citations"></ul>
+                        </details>
+                    </section>
+
+                    <details id="brief-raw-wrap" class="hidden raw-analysis">
+                        <summary>Full analysis (structured output unavailable)</summary>
+                        <pre id="brief-raw"></pre>
+                    </details>
+                </article>
+            </section>
+
+            <!-- ============ View 2: Log interaction ============ -->
+            <section id="view-log" class="view hidden">
+                <form id="log-form" class="panel">
+                    <h2>Log an interaction</h2>
+                    <label for="log-text">What happened?</label>
+                    <textarea id="log-text" rows="5"
+                        placeholder="e.g. Client asked for a 4th round of revisions on the logo, again by email, two days after sign-off."></textarea>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="log-type">Event type</label>
+                            <select id="log-type">
+                                <option value="interaction_log">General</option>
+                                <option value="design_review">Design review</option>
+                                <option value="revision_request">Revision request</option>
+                                <option value="scope_creep">Scope creep</option>
+                                <option value="payment">Payment</option>
+                                <option value="payment_late">Late payment</option>
+                                <option value="silence">Client went silent</option>
+                                <option value="rush_request">Rush request</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="log-amount">Amount (optional)</label>
+                            <input type="number" id="log-amount" step="0.01" min="0" placeholder="1500">
+                        </div>
+                        <div class="field">
+                            <label for="log-project">Project (optional)</label>
+                            <input type="text" id="log-project" placeholder="Brand Identity Design">
+                        </div>
+                    </div>
+
+                    <div class="action-row">
+                        <button type="submit" id="log-submit" class="primary-btn">Log interaction</button>
+                        <span id="log-status" class="status"></span>
+                    </div>
+                </form>
+
+                <div id="nudge-result"></div>
+            </section>
+
+            <!-- ============ View 3: Timeline ============ -->
+            <section id="view-timeline" class="view hidden">
+                <div class="action-row">
+                    <button id="get-timeline-btn" class="primary-btn">Load history</button>
+                    <span id="timeline-status" class="status"></span>
+                </div>
+                <div id="timeline-result"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built for HackwithHyderabad 3.0 &middot; Memory layer by Hindsight</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
